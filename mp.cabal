@@ -1,0 +1,83 @@
+Name:               sm
+Version:            0.1
+Cabal-Version:      >= 1.8
+Synopsis:           Simple Sales Message Handler
+Category:           financial
+Description:        Process sales and adjustments to periodic reports
+Author:             David Harley
+Maintainer:         dtgharley@googlemail.com
+Homepage:           http://github.com/harley/mp
+Copyright:          (c) 2017 by David Harley
+License:            BSD3
+License-File:       COPYING
+Stability:          experimental
+build-type:         Simple
+
+Extra-Source-Files:
+                    test/Examples.hs
+
+source-repository head
+  type:             git
+  location:         git://github.com/harley/sm
+
+Library
+  hs-Source-Dirs:   src/
+  Build-Depends:    base < 5
+                  , ghc >= 7.6
+                  , pcre-light
+                  , containers
+                  , bytestring
+                  , mtl
+ 
+  Exposed-Modules:  SM.Parser
+                    SM.Common
+                    SM.Reports
+                    SM.Handler
+                    SM.Run
+
+executable smEx
+  hs-source-dirs: test
+  main-is:        smExamples.hs
+  Build-Depends:    base < 5
+                  , ghc >= 7.6
+                  , sm 
+executable smLoop
+  hs-source-dirs: test
+  main-is:        smLoop.hs
+  Build-Depends:  base < 5
+                , ghc >= 7.6
+                , sm 
+
+Test-Suite smParserTests
+  type:               exitcode-stdio-1.0
+  main-is:            smParserTests.hs
+  hs-source-dirs:     test
+  Build-Depends:      base,
+                      test-framework,
+                      test-framework-hunit,
+                      HUnit,
+                      sm
+
+Test-Suite smHandlerTests
+  type:               exitcode-stdio-1.0
+  main-is:            smHandlerTests.hs
+  hs-source-dirs:     test
+  Build-Depends:      base,
+                      test-framework,
+                      test-framework-hunit,
+                      HUnit,
+                      mtl,
+                      containers,
+                      sm
+Test-Suite smRunTests
+  type:               exitcode-stdio-1.0
+  main-is:            smRunTests.hs
+  hs-source-dirs:     test
+  Build-Depends:      base,
+                      test-framework,
+                      test-framework-hunit,
+                      HUnit,
+                      mtl,
+                      containers,
+                      sm
+
